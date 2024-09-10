@@ -1,5 +1,8 @@
 import Image from "next/image";
 import localFont from "next/font/local";
+import React, { useState, useEffect } from 'react';
+export default HomePage;
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -11,18 +14,33 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
-export default function Home() {
+ 
+function Header({ title }) {
+  return <h1>{title ? title : 'Default title'}</h1>;
+}
+ 
+function HomePage() {
+  const names = ['Ambatukam', 'Ambatublow', 'Ambasing'];
+ 
+  const [likes, setLikes] = useState(0);
+ 
+  function handleClick() {
+    setLikes(likes + 1);
+  }
+ 
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start bg:darkBg">
-        <ol>
-          <h1>AMBASING</h1>
-        </ol>
-      </main>
-    
+    <div className="text-center font-bold text-6xl">
+      <Header title="Develop. Preview. Ship." />
+      <br></br>
+      <ul>
+        {names.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+        
+      <br></br>
+
+      <button onClick={handleClick}>Like ({likes})</button>
     </div>
   );
 }
